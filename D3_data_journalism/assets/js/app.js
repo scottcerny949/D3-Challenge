@@ -64,8 +64,9 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.healthcare))
     .attr("cy", d => yLinearScale(d.poverty))
+    .attr("class", "stateCircle")
     .attr("r", "10")
-    .attr("fill", "skyblue")
+    //.attr("fill", "skyblue")
     .attr("opacity", ".75");
 
     // Step 6: Initialize tool tip

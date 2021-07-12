@@ -39,7 +39,7 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(dataJournalism, d => d.poverty)])
+      .domain([6, d3.max(dataJournalism, d => d.poverty)])
       .range([height, 0]);
 
     // Step 3: Create axis functions
@@ -65,16 +65,16 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     .attr("cx", d => xLinearScale(d.healthcare))
     .attr("cy", d => yLinearScale(d.poverty))
     .attr("r", "10")
-    .attr("fill", "blue")
+    .attr("fill", "skyblue")
     .attr("opacity", ".75");
 
     // Step 6: Initialize tool tip
     // ==============================
     var toolTip = d3.tip()
-      .attr("class", "tooltip")
+      .attr("class", "d3-tip")
       .offset([80, -60])
       .html(function(d) {
-        return (`${d.state}<br>Lacks Health Care: ${d.healthcare}%<br>In Poverty: ${d.poverty}%`);
+        return (`${d.state}:<br>Lacks Health Care: ${d.healthcare}%<br>In Poverty: ${d.poverty}%`);
       });
 
     // Step 7: Create tooltip in the chart
@@ -97,13 +97,13 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
       .attr("y", 0 - margin.left + 40)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
-      .attr("class", "axisText")
-      .text("Lacks Health Care (%)");
+      .attr("class", "aText")
+      .text("In Poverty (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-      .attr("class", "axisText")
-      .text("In Poverty (%)");
+      .attr("class", "aText")
+      .text("Lacks Health Care (%)");
   }).catch(function(error) {
     console.log(error);
   });

@@ -65,9 +65,20 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     .attr("cx", d => xLinearScale(d.healthcare))
     .attr("cy", d => yLinearScale(d.poverty))
     .attr("class", "stateCircle")
-    .attr("r", "10")
-    //.attr("fill", "skyblue")
+    .attr("r", "15")
     .attr("opacity", ".75");
+
+    // Step 5.5: Add state abbreviations to the circles
+    // ==============================
+    var circleText = chartGroup.selectAll("stateText")
+    .data(dataJournalism)
+    .enter()
+    .append("text")
+    .attr("x", d => xLinearScale(d.healthcare))
+    .attr("y", d => yLinearScale(d.poverty)) 
+    .text(d=> d.abbr)
+    .classed("stateText", true);
+
 
     // Step 6: Initialize tool tip
     // ==============================

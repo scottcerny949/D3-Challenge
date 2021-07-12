@@ -56,6 +56,7 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     chartGroup.append("g")
       .call(leftAxis);
 
+
     // Step 5: Create Circles
     // ==============================
     var circlesGroup = chartGroup.selectAll("circle")
@@ -64,9 +65,9 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     .append("circle")
     .attr("cx", d => xLinearScale(d.healthcare))
     .attr("cy", d => yLinearScale(d.poverty))
-    .attr("class", "stateCircle")
+    .classed("stateCircle", true)
     .attr("r", "15")
-    .attr("opacity", ".75");
+    .attr("opacity", ".8");
 
     // Step 5.5: Add state abbreviations to the circles
     // ==============================
@@ -75,10 +76,9 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     .enter()
     .append("text")
     .attr("x", d => xLinearScale(d.healthcare))
-    .attr("y", d => yLinearScale(d.poverty)) 
+    .attr("y", d => yLinearScale(d.poverty)+3) 
     .text(d=> d.abbr)
     .classed("stateText", true);
-
 
     // Step 6: Initialize tool tip
     // ==============================
@@ -95,12 +95,14 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
 
     // Step 8: Create event listeners to display and hide the tooltip
     // ==============================
-    circlesGroup.on("click", function(data) {
-      toolTip.show(data, this);
-    })
+
+    circlesGroup.on("mouseover", function(d) {
+        toolTip.show(d, this);
+      })
+
       // onmouseout event
-      .on("mouseout", function(data, index) {
-        toolTip.hide(data);
+      .on("mouseout", function(d) {
+        toolTip.hide(d);
       });
 
     // Create axes labels
@@ -109,12 +111,12 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
       .attr("y", 0 - margin.left + 40)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
-      .attr("class", "aText")
+      .classed("aText", true)
       .text("In Poverty (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-      .attr("class", "aText")
+      .classed("aText", true)
       .text("Lacks Health Care (%)");
   }).catch(function(error) {
     console.log(error);

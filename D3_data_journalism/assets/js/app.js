@@ -24,8 +24,10 @@ d3.csv("assets/data/data.csv").then(function(dataJournalism) {
     // Cast each healthcare value in csv as a number using the unary + operator
     dataJournalism.forEach(function(data) {
       data.healthcare = +data.healthcare;
-      console.log("State:", data.state);
+      data.poverty = +data.poverty;
+      console.log("State:", data.abbr);
       console.log("Health Care:", data.healthcare);
+      console.log("Poverty:", data.poverty);
     });
   }).catch(function(error) {
     console.log(error);
